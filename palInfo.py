@@ -1267,4 +1267,4 @@ def loadPalData(file_path):
     paldata = data['properties']['worldSaveData']['value']['CharacterSaveParameterMap']['value']
     palguidmanager = PalGuid(data)
     palbox = loadpal(paldata, palguidmanager)
-    return palbox
+    return palbox, palguidmanager

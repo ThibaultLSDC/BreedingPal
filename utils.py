@@ -6,6 +6,7 @@ class Pal:
                  name: str,
                  sex: int,
                  passives=set(),
+                 player: str="",
                  parent1: Pal=None,
                  parent2: Pal=None,
                  generation=0
@@ -13,6 +14,7 @@ class Pal:
         self.name = name
         self.sex = sex
         self.passives = passives
+        self.player = player
 
         self.parent1 = parent1
         self.parent2 = parent2
@@ -36,7 +38,7 @@ class Pal:
 
     def __repr__(self) -> str:
         sex = '♂' if self.sex == 1 else '♀'
-        return f'{int_to_pal[self.name]} ({sex}, {", ".join([int_to_passives[skill] for skill in self.passives])})'
+        return f'{int_to_pal[self.name]} ({sex}, {", ".join([int_to_passives[skill] for skill in self.passives])}, {self.generation}, {self.player})'
 
     def __hash__(self) -> int:
         return hash(self.name) ^ hash(self.sex) ^ hash(self.passives)

@@ -10,13 +10,13 @@ import time
 with open("./resources/data/en-GB/passives.json", "r") as f:
     passiveData = json.load(f)
 
-palData = loadPalData("./Level.sav")
+palData, palguidmanager = loadPalData("./Level.sav")
 
 pals = []
-for k in range(len(palData["00000000-0000-0000-0000-000000000001"])):
-    pal = Pal(name=palData['00000000-0000-0000-0000-000000000001'][k].GetName(), sex=0 if palData['00000000-0000-0000-0000-000000000001'][k].GetGender() == "Male ♂" else 1, passives=set([passiveData[skill]["Name"] for skill in palData['00000000-0000-0000-0000-000000000001'][k].GetSkills()]))
-    pal = Pal(name=pal_to_int[pal.name], sex=pal.sex, passives=frozenset([passives_to_int[skill] for skill in pal.passives]))
-    pals.append(pal)
+for player, player_id in palguidmanager.GetPlayerslist().items():
+    for pal in palData[player_id]:
+        pal = Pal(name=pal_to_int[pal.GetName()], sex=0 if pal.GetGender() == "Male ♂" else 1, passives=frozenset([passives_to_int[passiveData[skill]["Name"]] for skill in pal.GetSkills()]), player=player)
+        pals.append(pal)
 
 if __name__ == '__main__':
     start = time.time()
